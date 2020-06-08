@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import vUsers from './components/component.vue'
+import vUsers from './components/userComponent.vue'
 
 export default {
   name: 'App',
@@ -30,6 +30,11 @@ export default {
           name: 'Name2',
           id: 2,
           price: 500
+        },
+        {
+          name: 'Name3',
+          id: 3,
+          price: 1500
         },
         {
           name: 'Name3',
