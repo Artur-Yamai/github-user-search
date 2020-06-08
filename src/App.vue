@@ -1,36 +1,38 @@
 <template>
 <div class="">
-  <input type="text" v-model="gitData">
-  <vitem
-    :gitDAta="gitData"  
-  ></vitem>
+  <v-users
+    v-for="user in users"
+    :key="user.id"
+    :name="user.name"
+    :price="user.price"
+  ></v-users>
 </div>
   
 </template>
 
 <script>
-import {vitem} from './components/component.vue'
+import vUsers from './components/component.vue'
 
 export default {
   name: 'App',
   components: {
-    vitem
+    vUsers
   },
   data() {
     return {
-      gitData: [
+      users: [
         {
-          title: 'Name1',
+          name: 'Name1',
           id: 1,
           price: 1000
         },
         {
-          title: 'Name2',
+          name: 'Name2',
           id: 2,
           price: 500
         },
         {
-          title: 'Name3',
+          name: 'Name3',
           id: 3,
           price: 1500
         }
@@ -40,4 +42,3 @@ export default {
   }
 }
 </script>
-
