@@ -1,14 +1,27 @@
 <template>
   <div class="get-input">
-    
+    <button type="submit" @click="lala">+</button>
+    {{gitData}}
   </div>
 </template>
 
+
 <script>
 export default {
-  name: 'get-input',
+  name: 'v-item',
   props: {
-    msg: String
+    gitData: String
+  },
+  data() {
+    return {
+      
+    }
+  },
+  methods: {
+    lala() {
+      // console.log(gitData);
+      
+    }
   }
 }
 </script>
