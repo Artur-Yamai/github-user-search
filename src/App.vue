@@ -1,49 +1,78 @@
 <template>
 <div class="">
-  <v-users
-    v-for="user in users"
-    :key="user.id"
-    :name="user.name"
-    :price="user.price"
-  ></v-users>
+  <h1>Github Search Users</h1>
+  <input type="text" 
+    @keypress.13="searchInput"
+    v-model="search">
+
+  <div class="users">    
+    <v-user
+      class="user"
+      v-for="user in users"
+      :key="user.id"
+      :login="user.login"
+      :img="user.avatar_url"
+    ></v-user>
+  </div>
+  
 </div>
   
 </template>
 
 <script>
-import vUsers from './components/userComponent.vue'
+import vUser from './components/userComponent.vue'
 
 export default {
   name: 'App',
   components: {
-    vUsers
+    vUser
   },
   data() {
     return {
-      users: [
-        {
-          name: 'Name1',
-          id: 1,
-          price: 1000
-        },
-        {
-          name: 'Name2',
-          id: 2,
-          price: 500
-        },
-        {
-          name: 'Name3',
-          id: 3,
-          price: 1500
-        },
-        {
-          name: 'Name3',
-          id: 3,
-          price: 1500
-        }
-      ]
+      search: '',
+      users: null
     }
     
+  },
+
+  methods: {
+
+    async searchInput() {
+      
+      if (this.search != '') {
+        return await fetch(`https://api.github.com/search/users?q=${this.search}`)
+          .then(response => {                         
+              if (response.ok) {
+                response.json().then(res => {
+                  this.users = res.items
+                  
+                  
+                })
+                
+              }               
+            })
+
+            // &per_page=${USER_PER_PAGE}&page=${this.currentPage}
+      }
+
+      
+    }
   }
 }
 </script>
+
+<style scoped>
+
+.users {
+  display: flex;
+  flex-wrap: wrap;
+  width: 70%;
+  margin: 0 auto;
+}
+
+.user {
+  margin: 0 10px;
+  width: calc(20% - 20px);
+}
+
+</style>
