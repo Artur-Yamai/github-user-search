@@ -25,4 +25,9 @@ export default {
 img {
   width: 100%;
 }
+
+p {
+  text-align: center;
+  
+}
 </style>

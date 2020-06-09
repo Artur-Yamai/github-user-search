@@ -2,7 +2,7 @@
 <div class="">
   <h1>Github Search Users</h1>
   <input type="text" 
-    @keypress.13="searchInput"
+    @keypress.13="loadUsers"
     v-model="search">
 
   <div class="users">    
@@ -14,6 +14,16 @@
       :img="user.avatar_url"
     ></v-user>
   </div>
+
+  <div class="add-block">
+    <button class="add"
+              type="submit" 
+              v-show="showButton"
+              @click="showMoreUsers"
+      >Add users</button>
+  </div>
+
+  
   
 </div>
   
@@ -30,31 +40,38 @@ export default {
   data() {
     return {
       search: '',
-      users: null
+      users: null,
+      userPerPage: 20,      
+      showButton: true
     }
     
   },
 
   methods: {
 
-    async searchInput() {
+    async loadUsers() {
       
       if (this.search != '') {
-        return await fetch(`https://api.github.com/search/users?q=${this.search}`)
-          .then(response => {                         
+        return await fetch(`https://api.github.com/search/users?q=${this.search}&per_page=${this.userPerPage}`)
+          .then(response => {   
+              console.log(response.total_count);
+                           
               if (response.ok) {
                 response.json().then(res => {
-                  this.users = res.items
-                  
-                  
+                  console.log(response.total_count);
+                  this.users = res.items;        
+                  console.log(res.items)
                 })
                 
               }               
             })
-
             // &per_page=${USER_PER_PAGE}&page=${this.currentPage}
-      }
+      }     
+    },
 
+    showMoreUsers() {
+      this.userPerPage += 20;
+      this.loadUsers()
       
     }
   }
@@ -67,12 +84,16 @@ export default {
   display: flex;
   flex-wrap: wrap;
   width: 70%;
-  margin: 0 auto;
+  margin: 0 auto 25px;
 }
 
 .user {
-  margin: 0 10px;
-  width: calc(20% - 20px);
+  margin: 0 10px 10px;
+  width: calc(20% - 30px);
+}
+
+.add-block {
+  text-align: center;
 }
 
 </style>
