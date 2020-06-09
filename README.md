@@ -1,24 +1,7 @@
-# githubspa
+# Github SPA
 
-## Project setup
-```
-npm install
-```
+Есть репозиторий на похожее приложение, но на нативе (не доделано, и врят ли сдоделаю).
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Переношу его на Vue, потому что он крутой.
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Конец
