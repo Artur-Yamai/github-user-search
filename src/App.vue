@@ -2,7 +2,7 @@
 <div class="">
   <h1>Github Search Users</h1>
   <input type="text" 
-    @keypress.13="loadUsers"
+    @keypress.13="searchUsers"
     v-model="search">
 
   <div class="users">    
@@ -65,8 +65,14 @@ export default {
                 
               }               
             })
-            // &per_page=${USER_PER_PAGE}&page=${this.currentPage}
-      }     
+            //&page=${this.currentPage}
+      }
+    },
+
+    searchUsers() {
+      this.users = '';
+      this.userPerPage = 20;
+      this.loadUsers();
     },
 
     showMoreUsers() {
