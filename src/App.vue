@@ -1,18 +1,22 @@
 <template>
 <div class="">
   <h1>Github Search Users</h1>
-  <input type="text" 
-    @keypress.13="searchUsers"
-    v-model="search">
+  
+  <div class="input-search">
+    <input type="text" 
+      @keypress.13="searchUsers"
+      v-model="search">
+      <p>found {{ totalUsers }} users</p>
+  </div>
 
-  <div class="users">    
-    <v-user
+  <div class="users">   
+      <v-user
       class="user"
       v-for="user in users"
       :key="user.id"
-      :login="user.login"
-      :img="user.avatar_url"
+      :user="user"
     ></v-user>
+    
   </div>
 
   <div class="add-block">
@@ -42,7 +46,8 @@ export default {
       search: '',
       users: null,
       userPerPage: 20,      
-      showButton: true
+      showButton: false,
+      totalUsers: 0
     }
     
   },
@@ -54,19 +59,23 @@ export default {
       if (this.search != '') {
         return await fetch(`https://api.github.com/search/users?q=${this.search}&per_page=${this.userPerPage}`)
           .then(response => {   
-              console.log(response.total_count);
                            
               if (response.ok) {
+                
                 response.json().then(res => {
-                  console.log(response.total_count);
-                  this.users = res.items;        
-                  console.log(res.items)
+                  this.users = res.items;   
+                  this.totalUsers = res.total_count;
+                  this.toShow();
+                  
                 })
                 
               }               
             })
-            //&page=${this.currentPage}
       }
+    },
+
+    toShow() {
+      this.showButton = this.totalUsers >= this.userPerPage
     },
 
     searchUsers() {
@@ -77,25 +86,39 @@ export default {
 
     showMoreUsers() {
       this.userPerPage += 20;
-      this.loadUsers()
-      
-    }
+      this.loadUsers();
+      this.toShow();     
+
+    },
   }
 }
 </script>
 
 <style scoped>
 
+h1 {
+  text-align: center;
+}
+
+input {
+  width: 40%;
+  text-align: center;
+}
+
+.input-search {
+  text-align: center;
+}
+
 .users {
   display: flex;
   flex-wrap: wrap;
-  width: 70%;
+  width: 100%;
   margin: 0 auto 25px;
 }
 
 .user {
   margin: 0 10px 10px;
-  width: calc(20% - 30px);
+  width: calc(20% - 20px);
 }
 
 .add-block {
