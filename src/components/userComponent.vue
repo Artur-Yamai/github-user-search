@@ -3,20 +3,13 @@
        @click="showId(user.repos_url)">
     <p>{{user.login}}</p>
     <img :src="user.avatar_url" :alt="user.login">
-    <p>
-      <span v-for="rep in repositories"
-            :key="rep.id"
-      >        
-         <a :href="rep.html_url">{{rep.name}}</a> 
-      </span>
-    </p>
   </div>
 </template>
 
 
 <script>
 export default {
-  name: 'v-user',
+  name: 'users-list',
   props: ['user'],
   data() {
     return {
@@ -24,21 +17,20 @@ export default {
     }
   },
   methods: {
-    async showId(url) {
-      
+    async showId(url) {     
       
       return await fetch(url)
-        .then(res => {          
-
+        .then(res => {
           if (res.ok) {
             res.json().then(res => {
-              console.log(res);
-              this.repositories = res;
+              this.repositories = res;                 
               
+              this.$emit('userRepos', {
+                user: this.user
+              })
             })
           }       
-        })
-      
+        })   
     }
   }
 }
@@ -46,6 +38,8 @@ export default {
 
 
 <style scoped>
+
+
 img {
   width: 100%;
 }

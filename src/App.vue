@@ -1,5 +1,5 @@
 <template>
-<div class="">
+<div>
   <h1>Github Search Users</h1>
   
   <div class="input-search">
@@ -9,15 +9,24 @@
       <p>found {{ totalUsers }} users</p>
   </div>
 
-  <div class="users">   
-      <v-user
-      class="user"
-      v-for="user in users"
-      :key="user.id"
-      :user="user"
-    ></v-user>
-    
+  <div class="search-result">
+    <div class="users">   
+      <users-list
+        class="user"
+        @userRepos="showDataUser"
+        v-for="user in users"
+        :key="user.id"
+        :user="user"
+      ></users-list>    
+    </div>
+
+    <div class="user-data">
+      <user-data
+        :dataUser="dataUser"
+      ></user-data>
+    </div>
   </div>
+
 
   <div class="add-block">
     <button class="add"
@@ -26,20 +35,20 @@
               @click="showMoreUsers"
       >Add users</button>
   </div>
-
-  
   
 </div>
   
 </template>
 
 <script>
-import vUser from './components/userComponent.vue'
+import UsersList from './components/userComponent.vue'
+import userData from './components/userData.vue'
 
 export default {
   name: 'App',
   components: {
-    vUser
+    UsersList,
+    userData
   },
   data() {
     return {
@@ -47,7 +56,8 @@ export default {
       users: null,
       userPerPage: 20,      
       showButton: false,
-      totalUsers: 0
+      totalUsers: 0,
+      dataUser: ''
     }
     
   },
@@ -90,6 +100,12 @@ export default {
       this.toShow();     
 
     },
+
+    showDataUser(data) {
+      console.log(data.user);
+      return this.dataUser = data.user
+      
+    }
   }
 }
 </script>
@@ -109,14 +125,19 @@ input {
   text-align: center;
 }
 
-.users {
-  display: flex;
-  flex-wrap: wrap;
+.search-result {
   width: 100%;
-  margin: 0 auto 25px;
 }
 
-.user {
+.users {
+  float: left;
+  display: flex;
+  flex-wrap: wrap;
+  width: calc(50% - 40px);
+  margin-bottom: 25px;
+}
+
+.users .user {
   margin: 0 10px 10px;
   width: calc(20% - 20px);
 }
