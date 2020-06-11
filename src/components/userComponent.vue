@@ -1,6 +1,6 @@
 <template>
   <div class="user"
-       @click="showId(user.repos_url)">
+       @click="openCard(user.repos_url)">
     <p>{{user.login}}</p>
     <img :src="user.avatar_url" :alt="user.login">
   </div>
@@ -11,22 +11,16 @@
 export default {
   name: 'users-list',
   props: ['user'],
-  data() {
-    return {
-      repositories: null
-    }
-  },
   methods: {
-    async showId(url) {     
+    async openCard(url) {     
       
       return await fetch(url)
         .then(res => {
           if (res.ok) {
-            res.json().then(res => {
-              this.repositories = res;                 
-              
+            res.json().then(res => {                
               this.$emit('userRepos', {
-                user: this.user
+                user: this.user,
+                repos: res
               })
             })
           }       

@@ -1,7 +1,6 @@
 <template>
 <div>
   <h1>Github Search Users</h1>
-  
   <div class="input-search">
     <input type="text" 
       @keypress.13="searchUsers"
@@ -18,23 +17,24 @@
         :key="user.id"
         :user="user"
       ></users-list>    
+      <div class="add-block">
+        <button class="add"
+                  type="submit" 
+                  v-show="showButton"
+                  @click="showMoreUsers"
+        >Add users</button>
+      </div>
     </div>
 
     <div class="user-data">
       <user-data
-        :dataUser="dataUser"
-      ></user-data>
+        :info="dataUser"
+      ></user-data>      
     </div>
   </div>
 
-
-  <div class="add-block">
-    <button class="add"
-              type="submit" 
-              v-show="showButton"
-              @click="showMoreUsers"
-      >Add users</button>
-  </div>
+  
+  
   
 </div>
   
@@ -75,12 +75,11 @@ export default {
                 response.json().then(res => {
                   this.users = res.items;   
                   this.totalUsers = res.total_count;
-                  this.toShow();
-                  
+                  this.toShow();                  
                 })
                 
               }               
-            })
+          })
       }
     },
 
@@ -101,10 +100,8 @@ export default {
 
     },
 
-    showDataUser(data) {
-      console.log(data.user);
-      return this.dataUser = data.user
-      
+    showDataUser(data) {      
+      this.dataUser = data;
     }
   }
 }
@@ -127,14 +124,17 @@ input {
 
 .search-result {
   width: 100%;
+  min-height: 10px;
 }
 
 .users {
+  position: relative;
   float: left;
   display: flex;
   flex-wrap: wrap;
   width: calc(50% - 40px);
   margin-bottom: 25px;
+  padding-bottom: 30px;
 }
 
 .users .user {
@@ -143,7 +143,10 @@ input {
 }
 
 .add-block {
-  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: calc(50% - 40px);
+  width: 100px;
 }
 
 </style>

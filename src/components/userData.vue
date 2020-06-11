@@ -1,18 +1,23 @@
 <template>
   <div class="user">
-    <h2>{{dataUser.login}}</h2>
+    <h2>{{info.user.login}}</h2>
     <img class="avatar"
-      :src="dataUser.avatar_url" 
+      :src="info.user.avatar_url" 
       alt="">
-    <p></p>
-    
+    <ul>
+      <li v-for="repos in info.repos"
+          :key="repos.id"
+      >
+      <a :href="repos.html_url">{{repos.name}}</a>        
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
 export default {
   name: 'user-data',
-  props: ['dataUser']
+  props: ['info']
 }
 </script>
 
@@ -21,8 +26,6 @@ export default {
   width: 50%;
   height: 70vh;
   float: right;
-  border: 1px solid black;
-  border-radius: 5px;
   margin: 5px;
   padding: 5px;
 }
