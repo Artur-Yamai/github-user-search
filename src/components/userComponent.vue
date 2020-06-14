@@ -1,8 +1,8 @@
 <template>
   <div class="user"
        @click="openCard(user.repos_url)">
-    <p>{{user.login}}</p>
-    <img :src="user.avatar_url" :alt="user.login">
+    <p class="login">{{user.login}}</p>
+    <img class="avatar" :src="user.avatar_url" :alt="user.login">
   </div>
 </template>
 
@@ -12,8 +12,7 @@ export default {
   name: 'users-list',
   props: ['user'],
   methods: {
-    async openCard(url) {     
-      
+    async openCard(url) {   
       return await fetch(url)
         .then(res => {
           if (res.ok) {
@@ -33,12 +32,16 @@ export default {
 
 <style scoped>
 
+.user {
+  margin: 0 10px 10px;
+  
+}
 
-img {
+.avatar {
   width: 100%;
 }
 
-p {
+.login {
   widows: 80%;
   text-align: center;
 
