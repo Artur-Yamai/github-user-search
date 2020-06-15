@@ -10,7 +10,6 @@
       <div class="users">
         <users-list
           class="user"
-          @userRepos="showDataUser"
           v-for="user in users"
           :key="user.id"
           :user="user"
@@ -20,8 +19,8 @@
         </div>
       </div>
 
-      <div class="user-data" v-if="isUserHasData">
-        <user-data :info="dataUser"></user-data>
+      <div class="user-data">
+        <user-data></user-data>
       </div>
     </div>
   </div>
@@ -43,9 +42,7 @@ export default {
       users: null,
       userPerPage: 20,
       showButton: false,
-      totalUsers: 0,
-      isUserHasData: false,
-      dataUser: {}
+      totalUsers: 0
     };
   },
 
@@ -80,11 +77,6 @@ export default {
       this.userPerPage += 20;
       this.loadUsers();
       this.toShow();
-    },
-
-    showDataUser(data) {
-      this.isUserHasData = true;
-      this.dataUser = data;
     }
   }
 };

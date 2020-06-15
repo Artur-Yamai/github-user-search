@@ -12,15 +12,15 @@ export default {
   name: 'users-list',
   props: ['user'],
   methods: {
-    async openCard(url) {   
+    async openCard(url) {    
       return await fetch(url)
         .then(res => {
           if (res.ok) {
-            res.json().then(res => {                
-              this.$emit('userRepos', {
+            res.json().then(res => {     
+              this.$store.commit('addRepos', {
                 user: this.user,
                 repos: res
-              })
+              });
             })
           }       
         })   

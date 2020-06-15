@@ -5,6 +5,25 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
-      a: 1
+      userData: {
+          user: {
+              login: '',
+              avatar: ''
+          },
+          repos: {}
+      }
+    },
+    getters: {
+        userData(state) {
+            return state.userData
+        } 
+    },
+    mutations: {
+        addRepos(state, urls) {
+            state.userData = urls
+        }
+    },
+    actions: {
+
     }
 });
