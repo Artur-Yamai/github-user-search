@@ -34,7 +34,8 @@ export default {
 
 .user {
   margin: 0 10px 10px;
-  
+
+  padding: 5px;
 }
 
 .avatar {

@@ -4,13 +4,14 @@
     <img class="avatar"
       :src="userData.user.avatar_url" 
       alt="">
-    <ul>
-      <li v-for="repos in userData.repos"
+    <div class="repositories">
+      <span class="repository"
+          v-for="repos in userData.repos"
           :key="repos.id"
       >
       <a :href="repos.html_url">{{repos.name}}</a>        
-      </li>
-    </ul>
+      </span>
+    </div>
     
   </div>
 </template>
@@ -31,7 +32,7 @@ export default {
 <style scoped>
 .user{
   width: 50%;
-  height: 70vh;
+  min-height: 100px;
   float: right;
   margin: 5px;
   padding: 5px;
@@ -47,7 +48,21 @@ h2 {
   text-align: center;
 }
 
+.repositories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 5px;
+  margin-top: 10px;
+}
 
+.repository {
+  display: inline-block;
+  margin: 0 5px 10px;
+}
 
+.repository a {
+
+}
 
 </style>

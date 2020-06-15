@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app">
     <h1>Github Search Users</h1>
     <div class="input-search">
       <input type="text" @keypress.13="searchUsers" v-model="search" />
@@ -83,8 +83,17 @@ export default {
 </script>
 
 <style scoped>
+
+
+.app {
+  background-color: rgb(30, 30, 30);
+  padding-top: 10px;
+}
+
 h1 {
   text-align: center;
+  font-family: Skywalker, 'Comic Sans MS', cursive;
+  color: white;
 }
 
 input {
@@ -94,6 +103,8 @@ input {
 
 .input-search {
   text-align: center;
+  color: white;
+  margin: 5px;
 }
 
 .search-result {
@@ -108,11 +119,12 @@ input {
   flex-wrap: wrap;
   width: calc(50% - 40px);
   margin-bottom: 25px;
+  padding-left: 25px;
   padding-bottom: 30px;
 }
 
 .users .user {
-  width: calc(20% - 20px);
+  width: calc(20% - 30px);
 }
 
 .add-block {
